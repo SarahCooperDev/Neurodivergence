@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Neurodivergence</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="title_div">
+        <h1>Breaking Down Neurodiversity</h1>
+    </div>
+    <table id="body_table">
+        <tr>
+            <td width="30%">
+                <div id="input_div">
+                    <h3>Input variables</h3>
+                    <hr>
+                    <div input_fields_div>
+                        <label for="audio_processing_input" class="form_label">Audio Processing</label>
+                        <div>
+                            <input type="number" class="form_control" aria-describedby="basic-addon3" id="audio_processing_input" name="audio_processing" value="100" oninput="refreshChart();">
+                        </div>
+                        <label for="visual_processing_input" class="form_label">Visual Processing</label>
+                        <div>
+                            <input type="number" class="form_control" aria-describedby="basic-addon3" id="visual_processing_input" name="visual_processing" value="100" oninput="refreshChart();">
+                        </div>
+                        <label for="adhd_input" class="form_label">ADHD</label>
+                        <div>
+                            <input type="number" class="form_control" aria-describedby="basic-addon3" id="adhd_input" name="adhd" value="100" oninput="refreshChart();">
+                        </div>
+                        <label for="asd_input" class="form_label">ASD</label>
+                        <div>
+                            <input type="number" class="form_control" aria-describedby="basic-addon3" id="asd_input" name="asd" value="100" oninput="refreshChart();">
+                        </div>
+                        <label for="exec_dys_input" class="form_label">Executive Dysfunction</label>
+                        <div>
+                            <input type="number" class="form_control" aria-describedby="basic-addon3" id="exec_dys_input" name="exec_dys" value="100" oninput="refreshChart();">
+                        </div>
+                        <label for="textile_processing_input" class="form_label">Textile Processing</label>
+                        <div>
+                            <input type="number" class="form_control" aria-describedby="basic-addon3" id="textile_processing_input" name="textile_processing" value="100" oninput="refreshChart();">
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td width="70%">
+                <div id="chart_div">
+                    <canvas id="breakdown_chart" width="200" height="200"></canvas>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script>
+    const ctx = document.getElementById('breakdown_chart').getContext('2d');
+    const DATA_COUNT = 6;
+    const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+    const labels = ['Audio Processing', 'Visual Processing', 'ADHD', 'ASD', 'Executive Dysfunction', 'Textile Processing'];
+
+    const chart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Dataset 1',
+                data: [
+                    document.getElementById('audio_processing_input').value,
+                    document.getElementById('visual_processing_input').value,
+                    document.getElementById('adhd_input').value,
+                    document.getElementById('asd_input').value,
+                    document.getElementById('exec_dys_input').value,
+                    document.getElementById('textile_processing_input').value
+                ],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 205, 86)',
+                    'rgb(201, 203, 207)',
+                    'rgb(54, 162, 235)',
+                    'rgb(214, 51, 255)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    pointLabels: {
+                        display: true,
+                        centerPointLabels: true,
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Neurodiversity Breakdown Chart'
+                }
+            }
+        }
+    });
+
+    function refreshChart(){
+        console.log("Hit the Refresh Chart function");
+        chart.data.datasets[0].data[0] = document.getElementById('audio_processing_input').value;
+        chart.data.datasets[0].data[1] = document.getElementById('visual_processing_input').value;
+        chart.data.datasets[0].data[2] = document.getElementById('adhd_input').value;
+        chart.data.datasets[0].data[3] = document.getElementById('asd_input').value;
+        chart.data.datasets[0].data[4] = document.getElementById('exec_dys_input').value;
+        chart.data.datasets[0].data[5] = document.getElementById('textile_processing_input').value;
+        chart.update();
+        console.log(document.getElementById('audio_processing_input').value);
+    }
+</script>

@@ -1,0 +1,49 @@
+h1{
+    font-family:  FreeMono, "Andale Mono";
+    font-style: oblique;
+    font-variant: small-caps;
+    text-align: center;
+    color:azure;
+}
+
+canvas{
+    padding: 0;
+    margin: auto;
+    display: block;
+}
+
+
+.title_div{
+    background-color:  #00001a;
+    width: 100%;
+}
+
+.form_control{
+    margin-bottom: 20px;
+}
+
+
+#breakdown_chart{
+    height: 700px !important;
+    width: 700px !important;
+}
+
+#chart_div{
+    text-align: center !important;
+}
+
+#body_table{
+    width: 100%;
+}
+
+#input_div{
+    background-color:  #00001a;
+    color:azure;
+    padding: 20px;
+    height: 100%;
+    text-align: center !important
+}
+
+#input_fields_div{
+    text-align: center !important;
+}
